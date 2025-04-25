@@ -25,7 +25,7 @@ const Dashboard = () => {
   const [filters, setFilters] = useState({
     search: searchParams.get('search') || '',
     consultationType: searchParams.get('consultationType') || null,
-    specialties: specialties,
+    specialties: selectedSpecialtiesFromUrl,
     priceRange: [
       Number(searchParams.get('priceMin')) || 0,
       Number(searchParams.get('priceMax')) || 5000,
@@ -40,15 +40,24 @@ const Dashboard = () => {
       try {
         setLoading(true);
         const data = await fetchDoctors();
-
-        // Normalize fees to number and availability to boolean
-        const enhancedData = data.map((doctor) => ({
-          ...doctor,
-          fees: Number(doctor.fees) || 0,
-          availability: doctor.availability === 'available',
-          speciality: Array.isArray(doctor.speciality) ? doctor.speciality : [doctor.speciality].filter(Boolean),
-        }));
-
+  
+        // Map and normalize doctor data
+        const enhancedData = data.map((doctor) => {
+          // Extract numeric fee from string like "₹ 500"
+          let feeNumber = null;
+          if (doctor.fees) {
+            const feeStr = doctor.fees.toString().replace(/[^\d.]/g, ''); // remove non-digit/non-dot chars
+            feeNumber = feeStr ? Number(feeStr) : null;
+          }
+  
+          return {
+            ...doctor,
+            fees: feeNumber,
+            availability: doctor.availability === 'available',
+            speciality: Array.isArray(doctor.speciality) ? doctor.speciality : [doctor.speciality].filter(Boolean),
+          };
+        });
+  
         setDoctors(enhancedData);
         setSpecialties(extractSpecialties(enhancedData));
         setLoading(false);
@@ -57,10 +66,10 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-
+  
     loadDoctors();
   }, []);
-
+  
   // Update URL query params when filters change
   useEffect(() => {
     const params = {};
