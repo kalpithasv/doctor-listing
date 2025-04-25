@@ -9,44 +9,36 @@ const Autocomplete = ({ doctors, onSearch, searchTerm = '' }) => {
   const [suggestions, setSuggestions] = useState([]);
   const wrapperRef = useRef(null);
 
-  // Initialize input with searchTerm if provided
   useEffect(() => {
     setInput(searchTerm);
   }, [searchTerm]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     }
-    
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [wrapperRef]);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
-    
-    // Filter doctors based on input
+
     if (value.trim() === '') {
       setSuggestions([]);
       setIsOpen(false);
       onSearch('');
     } else {
-      const filteredSuggestions = doctors.filter(doctor => 
+      const filteredSuggestions = doctors.filter(doctor =>
         doctor.name.toLowerCase().includes(value.toLowerCase()) ||
-        (doctor.speciality && Array.isArray(doctor.speciality) && 
-         doctor.speciality.some(spec => 
-           spec.toLowerCase().includes(value.toLowerCase())
-         )) ||
+        (doctor.speciality && Array.isArray(doctor.speciality) &&
+          doctor.speciality.some(spec => spec.toLowerCase().includes(value.toLowerCase()))) ||
         (doctor.location && doctor.location.toLowerCase().includes(value.toLowerCase()))
-      ).slice(0, 5); // Limit to 5 suggestions
-      
+      ).slice(0, 3); // Limit to 3 suggestions
+
       setSuggestions(filteredSuggestions);
       setIsOpen(true);
     }
@@ -68,13 +60,13 @@ const Autocomplete = ({ doctors, onSearch, searchTerm = '' }) => {
     <div className={styles.autocompleteContainer} ref={wrapperRef}>
       <form onSubmit={handleSubmit} className={styles.searchForm}>
         <div className={styles.inputWrapper}>
-          <svg 
-            className={styles.searchIcon} 
-            width="20" 
-            height="20" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className={styles.searchIcon}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             strokeWidth="2"
           >
             <circle cx="11" cy="11" r="8"></circle>
@@ -87,10 +79,11 @@ const Autocomplete = ({ doctors, onSearch, searchTerm = '' }) => {
             placeholder="Search by doctor, specialty, location..."
             className={styles.searchInput}
             aria-label="Search doctors"
+            data-testid="autocomplete-input"  // <-- Added here
           />
           {input && (
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={styles.clearButton}
               onClick={() => {
                 setInput('');
@@ -106,13 +99,17 @@ const Autocomplete = ({ doctors, onSearch, searchTerm = '' }) => {
           Search
         </button>
       </form>
-      
+
       {isOpen && suggestions.length > 0 && (
         <ul className={styles.suggestionsList}>
           {suggestions.map((doctor) => (
-            <li key={doctor.id} className={styles.suggestionItem}>
-              <Link 
-                to={`/doctors/${doctor.id}`} 
+            <li
+              key={doctor.id}
+              className={styles.suggestionItem}
+              data-testid="suggestion-item"  // <-- Added here
+            >
+              <Link
+                to={`/doctors/${doctor.id}`}
                 className={styles.suggestionLink}
                 onClick={() => handleSelection(doctor.name)}
               >
@@ -122,18 +119,18 @@ const Autocomplete = ({ doctors, onSearch, searchTerm = '' }) => {
                 <div className={styles.suggestionContent}>
                   <span className={styles.doctorName}>{doctor.name}</span>
                   <span className={styles.doctorDetail}>
-                    {doctor.speciality ? 
-                      (Array.isArray(doctor.speciality) ? 
-                        doctor.speciality.join(', ') : 
-                        doctor.speciality) : 
-                      ''}
+                    {doctor.speciality
+                      ? Array.isArray(doctor.speciality)
+                        ? doctor.speciality.join(', ')
+                        : doctor.speciality
+                      : ''}
                   </span>
                 </div>
               </Link>
             </li>
           ))}
           <li className={styles.viewAllItem}>
-            <button 
+            <button
               className={styles.viewAllButton}
               onClick={() => {
                 onSearch(input);

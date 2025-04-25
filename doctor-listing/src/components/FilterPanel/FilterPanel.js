@@ -1,53 +1,69 @@
 // src/components/FilterPanel/FilterPanel.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './FilterPanel.module.css';
 
-const FilterPanel = ({ 
-  filters, 
-  specialties, 
-  onSortChange, 
-  onSpecialtyChange, 
+const FilterPanel = ({
+  filters,
+  specialties,
+  onSortChange,
+  onSpecialtyChange,
   onConsultationModeChange,
-  onPriceRangeChange
+  onPriceRangeChange,
 }) => {
-  // Handle price range minimum change
+  const [localPriceRange, setLocalPriceRange] = useState(filters.priceRange);
+
+  // Sync local price range if filters.priceRange changes externally
+  useEffect(() => {
+    setLocalPriceRange(filters.priceRange);
+  }, [filters.priceRange]);
+
   const handleMinPriceChange = (e) => {
-    const minValue = parseInt(e.target.value) || 0;
-    const [, maxValue] = filters.priceRange;
-    onPriceRangeChange([minValue, maxValue]);
+    const minValue = parseInt(e.target.value, 10) || 0;
+    setLocalPriceRange([minValue, localPriceRange[1]]);
   };
 
-  // Handle price range maximum change
   const handleMaxPriceChange = (e) => {
-    const maxValue = parseInt(e.target.value) || 5000;
-    const [minValue] = filters.priceRange;
-    onPriceRangeChange([minValue, maxValue]);
+    const maxValue = parseInt(e.target.value, 10) || 5000;
+    setLocalPriceRange([localPriceRange[0], maxValue]);
   };
+
+  // Apply price range when input loses focus or slider is released
+  const applyPriceRange = () => {
+    onPriceRangeChange(localPriceRange);
+  };
+
+  // Helper to generate data-testid for specialties (replace spaces and slashes)
+  const getSpecialtyTestId = (specialty) =>
+    `filter-specialty-${specialty.replace(/\s+/g, '-').replace(/\//g, '-')}`;
 
   return (
     <div className={styles.filterPanel}>
       <div className={styles.filterSection}>
-        <h3 className={styles.filterTitle}>Sort By</h3>
+        <h3 className={styles.filterTitle} data-testid="filter-header-sort">
+          Sort By
+        </h3>
         <div className={styles.sortOptions}>
-          <button 
+          <button
+            data-testid="sort-fees"
             className={`${styles.sortButton} ${filters.sort === 'fees' ? styles.active : ''}`}
             onClick={() => onSortChange('fees')}
           >
             Price - Low to High
           </button>
-          <button 
-            className={`${styles.sortButton} ${filters.sort === 'fees-desc' ? styles.active : ''}`}
-            onClick={() => onSortChange('fees-desc')}
-          >
-            Price - High to Low
-          </button>
-          <button 
+          <button
+            data-testid="sort-experience"
             className={`${styles.sortButton} ${filters.sort === 'experience' ? styles.active : ''}`}
             onClick={() => onSortChange('experience')}
           >
             Experience
           </button>
-          <button 
+          <button
+            className={`${styles.sortButton} ${filters.sort === 'fees-desc' ? styles.active : ''}`}
+            onClick={() => onSortChange('fees-desc')}
+          >
+            Price - High to Low
+          </button>
+          <button
             className={`${styles.sortButton} ${filters.sort === 'availability' ? styles.active : ''}`}
             onClick={() => onSortChange('availability')}
           >
@@ -57,9 +73,12 @@ const FilterPanel = ({
       </div>
 
       <div className={styles.filterSection}>
-        <h3 className={styles.filterTitle}>Consultation Type</h3>
+        <h3 className={styles.filterTitle} data-testid="filter-header-moc">
+          Consultation Type
+        </h3>
         <div className={styles.consultationOptions}>
-          <button 
+          <button
+            data-testid="filter-video-consult"
             className={`${styles.consultButton} ${filters.consultationType === 'videoConsult' ? styles.active : ''}`}
             onClick={() => onConsultationModeChange('videoConsult')}
           >
@@ -69,7 +88,8 @@ const FilterPanel = ({
             </svg>
             Video Consult
           </button>
-          <button 
+          <button
+            data-testid="filter-in-clinic"
             className={`${styles.consultButton} ${filters.consultationType === 'inClinic' ? styles.active : ''}`}
             onClick={() => onConsultationModeChange('inClinic')}
           >
@@ -91,8 +111,10 @@ const FilterPanel = ({
               type="number"
               min="0"
               max="5000"
-              value={filters.priceRange[0]}
+              value={localPriceRange[0]}
               onChange={handleMinPriceChange}
+              onBlur={applyPriceRange}
+              data-testid="price-min-input"
             />
           </div>
           <div className={styles.rangeInput}>
@@ -101,8 +123,10 @@ const FilterPanel = ({
               type="number"
               min="0"
               max="5000"
-              value={filters.priceRange[1]}
+              value={localPriceRange[1]}
               onChange={handleMaxPriceChange}
+              onBlur={applyPriceRange}
+              data-testid="price-max-input"
             />
           </div>
         </div>
@@ -111,15 +135,19 @@ const FilterPanel = ({
             type="range"
             min="0"
             max="5000"
-            value={filters.priceRange[1]}
+            value={localPriceRange[1]}
             onChange={handleMaxPriceChange}
+            onMouseUp={applyPriceRange}
             className={styles.slider}
+            data-testid="price-range-slider"
           />
         </div>
       </div>
 
       <div className={styles.filterSection}>
-        <h3 className={styles.filterTitle}>Specialties</h3>
+        <h3 className={styles.filterTitle} data-testid="filter-header-speciality">
+          Specialties
+        </h3>
         <div className={styles.specialtyList}>
           {specialties.length > 0 ? (
             specialties.map((specialty, index) => (
@@ -129,6 +157,7 @@ const FilterPanel = ({
                   checked={filters.specialties.includes(specialty)}
                   onChange={() => onSpecialtyChange(specialty)}
                   className={styles.checkbox}
+                  data-testid={getSpecialtyTestId(specialty)}
                 />
                 <span className={styles.checkmark}></span>
                 {specialty}

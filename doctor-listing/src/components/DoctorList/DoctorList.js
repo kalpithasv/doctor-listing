@@ -1,9 +1,8 @@
+// src/components/DoctorList/DoctorList.js
 import React from 'react';
-// Import all modules at the top of the file
 import * as DoctorCardModule from '../DoctorCard/DoctorCard';
 import styles from './DoctorList.module.css';
 
-// Then declare any constants from imports
 const DoctorCard = DoctorCardModule.default || DoctorCardModule;
 
 const DoctorList = ({ doctors, loading, error }) => {
@@ -19,13 +18,12 @@ const DoctorList = ({ doctors, loading, error }) => {
     return <div className={styles.noResultsContainer}>No doctors found matching your criteria.</div>;
   }
 
-  // Add a check to make sure DoctorCard is a valid component
-  console.log("DoctorCard type:", typeof DoctorCard);
-
   return (
     <div className={styles.doctorListContainer}>
-      {doctors.map(doctor => (
-        <DoctorCard key={doctor.id || Math.random()} doctor={doctor} />
+      {doctors.map((doctor) => (
+        <div key={doctor.id} data-testid="doctor-card">
+          <DoctorCard doctor={doctor} />
+        </div>
       ))}
     </div>
   );
