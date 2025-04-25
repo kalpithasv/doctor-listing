@@ -1,0 +1,114 @@
+/* src/components/Layout/Layout.module.css */
+.header {
+    background-color: #6200ea;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .navList {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    margin: 0 15px;
+    cursor: pointer;
+  }
+  
+  .userActions {
+    display: flex;
+  }
+  
+  .loginButton, .signupButton {
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .loginButton {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+  }
+  
+  .signupButton {
+    background-color: white;
+    border: none;
+    color: #6200ea;
+  }
+  
+  .footer {
+    background-color: #303030;
+    color: #e0e0e0;
+    padding: 40px 0 20px;
+  }
+  
+  .footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .footerSection {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .footerSection h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: white;
+  }
+  
+  .footerSection ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footerSection li {
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  .socialIcons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .socialIcons span {
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    color: #aaa;
+    font-size: 14px;
+  }

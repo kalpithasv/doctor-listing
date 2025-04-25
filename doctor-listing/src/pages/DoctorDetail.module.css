@@ -1,0 +1,349 @@
+/* DoctorDetail.module.css - Simplified Version */
+
+/* Base Layout */
+.detailContainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  
+  /* Loading & Error States */
+  .loadingContainer, .errorContainer {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .loadingSpinner {
+    border: 4px solid #eee;
+    border-left-color: #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Back Button */
+  .backButton {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  /* Doctor Header */
+  .doctorHeader {
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .doctorAvatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .doctorName {
+    font-size: 24px;
+    margin: 0 0 5px;
+  }
+  
+  .doctorSpecialty, .doctorQualification {
+    margin: 0 0 5px;
+    color: #666;
+  }
+  
+  .doctorBadges {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .experienceBadge, .videoBadge, .clinicBadge {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .feeInfo {
+    margin-left: auto;
+    text-align: right;
+  }
+  
+  .feeAmount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+  }
+  
+  /* Tabs */
+  .detailTabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .tabButton {
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+  }
+  
+  .activeTab {
+    color: #3498db;
+    border-bottom: 3px solid #3498db;
+  }
+  
+  /* Tab Content */
+  .tabContent {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* About Section */
+  .aboutSection h2, .bookingSection h2, .locationSection h2, .reviewsSection h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .specializationList, .servicesList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .specializationItem, .serviceItem {
+    background-color: #f5f5f5;
+    padding: 8px 15px;
+    border-radius: 20px;
+  }
+  
+  /* Booking Section */
+  .bookingOptions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .bookingTypeButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .datesScrollContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .dateCard {
+    min-width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .dateHeader {
+    background-color: #f5f5f5;
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .slotsContainer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .timeSlot {
+    padding: 6px 8px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .bookNowButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  /* Location Section */
+  .timingsTable {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .timingRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .mapPlaceholder {
+    height: 200px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    border-radius: 8px;
+    margin: 15px 0;
+  }
+  
+  /* Reviews Section */
+  .reviewStats {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .ratingOverview {
+    text-align: center;
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .avgRating {
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .starRating {
+    display: flex;
+    margin: 10px 0;
+  }
+  
+  .filledStar {
+    color: #f39c12;
+  }
+  
+  .emptyStar {
+    color: #ddd;
+  }
+  
+  .ratingBreakdown {
+    flex: 1;
+  }
+  
+  .ratingBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .progressBarContainer {
+    flex: 1;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin: 0 10px;
+  }
+  
+  .progressBarFill {
+    height: 100%;
+    background-color: #f39c12;
+    border-radius: 5px;
+  }
+  
+  .reviewCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .reviewHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .reviewerInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .reviewerInitial {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .noReviews {
+    text-align: center;
+    padding: 30px 0;
+    color: #777;
+  }
+  
+  .writeReviewButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  /* Basic Responsive Adjustments */
+  @media (max-width: 768px) {
+    .doctorHeader, .reviewStats {
+      flex-direction: column;
+    }
+    
+    .ratingOverview {
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      padding-right: 0;
+      margin-right: 0;
+    }
+  }

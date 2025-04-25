@@ -1,0 +1,86 @@
+/* src/components/DoctorList/DoctorList.module.css */
+.doctorList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  color: #4a5568;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ebf8ff;
+  border-top: 4px solid #4299e1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  color: #e53e3e;
+  text-align: center;
+}
+
+.errorContainer svg {
+  margin-bottom: 15px;
+  stroke: #e53e3e;
+}
+
+.retryButton {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: #3182ce;
+}
+
+.noResultsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  color: #4a5568;
+  text-align: center;
+}
+
+.noResultsContainer svg {
+  margin-bottom: 15px;
+  stroke: #a0aec0;
+}
+
+.noResultsContainer h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+}
+
+.noResultsContainer p {
+  color: #718096;
+  margin: 0;
+}

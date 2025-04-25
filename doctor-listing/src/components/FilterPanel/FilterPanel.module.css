@@ -1,0 +1,197 @@
+/* src/components/FilterPanel/FilterPanel.module.css */
+.filterPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filterSection {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+}
+
+.filterSection:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.filterTitle {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.sortOptions, .consultationOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sortButton, .consultButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.sortButton:hover, .consultButton:hover {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.sortButton.active, .consultButton.active {
+  background-color: #ebf8ff;
+  border-color: #63b3ed;
+  color: #2b6cb0;
+}
+
+.consultButton svg {
+  margin-right: 8px;
+}
+
+.specialtyList {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.specialtyList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.specialtyList::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 4px;
+}
+
+.specialtyList::-webkit-scrollbar-track {
+  background-color: #f7fafc;
+}
+
+.checkboxLabel {
+  display: block;
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 1px solid #cbd5e0;
+  border-radius: 3px;
+}
+
+.checkboxLabel:hover input ~ .checkmark {
+  background-color: #f7fafc;
+}
+
+.checkboxLabel input:checked ~ .checkmark {
+  background-color: #4299e1;
+  border-color: #4299e1;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxLabel input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkboxLabel .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.noSpecialties {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.priceRangeInputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.rangeInput {
+  flex: 1;
+}
+
+.rangeInput label {
+  display: block;
+  font-size: 0.8rem;
+  color: #718096;
+  margin-bottom: 5px;
+}
+
+.rangeInput input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.priceRangeSlider {
+  padding: 0 5px;
+}
+
+.slider {
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4299e1;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4299e1;
+  cursor: pointer;
+}
